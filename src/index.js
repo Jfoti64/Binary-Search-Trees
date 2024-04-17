@@ -11,3 +11,4 @@ newTree.inOrderTraversal();
 
 console.log(newTree.height(newTree.root));
 console.log("Depth of node with value 5:", newTree.findDepth(newTree.root, 5));
+console.log("Is the tree balanced?", newTree.isBalanced());

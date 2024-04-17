@@ -57,14 +57,16 @@ class Tree {
       // Node to delete is found
       if (node.left === null && node.right === null) {
         return null; // No children, return null to unlink node
-      } else if (node.left === null) {
+      }
+      if (node.left === null) {
         return node.right; // One child (right), return it to link it back to parent
-      } else if (node.right === null) {
+      }
+      if (node.right === null) {
         return node.left; // One child (left), return it to link it back to parent
       }
 
       // Two children, get the inorder successor (smallest in the right subtree)
-      let successor = this.findMin(node.right);
+      const successor = this.findMin(node.right);
       node.data = successor.data; // Copy the inorder successor's value to the node
       node.right = this.delete(successor.data, node.right); // Delete the inorder successor
     }
@@ -90,25 +92,22 @@ class Tree {
       return this.find(value, node.left);
     }
     // Navigate right
-    else if (value > node.data) {
+    if (value > node.data) {
       return this.find(value, node.right);
     }
     // If the current node's data matches the search value, return the node
-    else {
-      console.log(node);
-      return node;
-    }
+    return node;
   }
 
   levelOrderTraversal(root = this.root, callback = (node) => node.data) {
     if (!root) return []; // Handle an empty tree
 
-    let queue = [];
-    let result = []; // Array to hold results of callback
+    const queue = [];
+    const result = []; // Array to hold results of callback
     queue.push(root);
 
     while (queue.length > 0) {
-      let currentNode = queue.shift();
+      const currentNode = queue.shift();
       result.push(callback(currentNode)); // Apply callback to each node
 
       if (currentNode.left) {
@@ -136,8 +135,8 @@ class Tree {
     if (node === null) return -1;
 
     // Compute the height of each subtree
-    let lheight = this.height(node.left);
-    let rheight = this.height(node.right);
+    const lheight = this.height(node.left);
+    const rheight = this.height(node.right);
 
     // Use the larger one and add 1 for the current node
     return Math.max(lheight, rheight) + 1;
@@ -148,10 +147,26 @@ class Tree {
     if (node.data === target) return depth; // Target node found, return current depth
 
     // Recursively search for target in left and right subtrees
-    let left = this.findDepth(node.left, target, depth + 1);
+    const left = this.findDepth(node.left, target, depth + 1);
     if (left !== -1) return left; // Target found in left subtree
 
     return this.findDepth(node.right, target, depth + 1); // Check right subtree
+  }
+
+  isBalanced(node = this.root) {
+    const checkBalance = (node) => {
+      if (node === null) return { balanced: true, height: -1 };
+
+      const left = checkBalance(node.left);
+      const right = checkBalance(node.right);
+
+      const balanced = left.balanced && right.balanced && Math.abs(left.height - right.height) <= 1;
+      const height = 1 + Math.max(left.height, right.height);
+
+      return { balanced, height };
+    };
+
+    return checkBalance(node).balanced;
   }
 
   display(node = this.root) {
