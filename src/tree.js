@@ -50,6 +50,41 @@ class Tree {
     return node;
   }
 
+  delete(value, node = this.root) {
+    if (node === null) {
+      return null; // Base case: value not found
+    }
+
+    if (value < node.data) {
+      node.left = this.delete(value, node.left); // Go left
+    } else if (value > node.data) {
+      node.right = this.delete(value, node.right); // Go right
+    } else {
+      // Node to delete is found
+      if (node.left === null && node.right === null) {
+        return null; // No children, return null to unlink node
+      } else if (node.left === null) {
+        return node.right; // One child (right), return it to link it back to parent
+      } else if (node.right === null) {
+        return node.left; // One child (left), return it to link it back to parent
+      }
+
+      // Two children, get the inorder successor (smallest in the right subtree)
+      let successor = this.findMin(node.right);
+      node.data = successor.data; // Copy the inorder successor's value to the node
+      node.right = this.delete(successor.data, node.right); // Delete the inorder successor
+    }
+    return node;
+  }
+
+  findMin(node) {
+    let current = node;
+    while (current && current.left !== null) {
+      current = current.left;
+    }
+    return current;
+  }
+
   display(node = this.root) {
     const prettyPrint = (node, prefix = '', isLeft = true) => {
       if (node === null) {
