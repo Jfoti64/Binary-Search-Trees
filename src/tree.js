@@ -132,15 +132,26 @@ class Tree {
     return result;
   }
 
-  height(root = this.root) {
-    if (root === null) return -1; // Correct base case for height
+  height(node) {
+    if (node === null) return -1;
 
     // Compute the height of each subtree
-    let lheight = this.height(root.left);
-    let rheight = this.height(root.right);
+    let lheight = this.height(node.left);
+    let rheight = this.height(node.right);
 
     // Use the larger one and add 1 for the current node
     return Math.max(lheight, rheight) + 1;
+  }
+
+  findDepth(node, target, depth = 0) {
+    if (node === null) return -1; // Base case: node not found
+    if (node.data === target) return depth; // Target node found, return current depth
+
+    // Recursively search for target in left and right subtrees
+    let left = this.findDepth(node.left, target, depth + 1);
+    if (left !== -1) return left; // Target found in left subtree
+
+    return this.findDepth(node.right, target, depth + 1); // Check right subtree
   }
 
   display(node = this.root) {

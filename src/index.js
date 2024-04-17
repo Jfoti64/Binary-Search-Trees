@@ -9,4 +9,5 @@ newTree.display();
 
 newTree.inOrderTraversal();
 
-console.log(newTree.height());
+console.log(newTree.height(newTree.root));
+console.log("Depth of node with value 5:", newTree.findDepth(newTree.root, 5));
