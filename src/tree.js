@@ -85,6 +85,27 @@ class Tree {
     return current;
   }
 
+  find(value, node = this.root) {
+    // Base case: check if the current node is null
+    if (node === null) {
+      return null;
+    }
+
+    // Navigate left
+    if (value < node.data) {
+      return this.find(value, node.left);
+    } 
+    // Navigate right
+    else if (value > node.data) {
+      return this.find(value, node.right);
+    }
+    // If the current node's data matches the search value, return the node
+    else {
+      console.log(node);
+      return node;
+    }
+  }
+
   display(node = this.root) {
     const prettyPrint = (node, prefix = '', isLeft = true) => {
       if (node === null) {
