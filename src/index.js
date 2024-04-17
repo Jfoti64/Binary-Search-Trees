@@ -7,4 +7,6 @@ newTree.find(111);
 
 newTree.display();
 
-console.log(newTree.levelOrderTraversal());
+newTree.inOrderTraversal();
+
+console.log(newTree.inOrderTraversal());

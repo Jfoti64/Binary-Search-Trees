@@ -3,23 +3,17 @@ import Node from './node';
 class Tree {
   constructor(arr) {
     this.arr = this.sortAndFilter(arr);
-    this.root = this.buildTree(arr, 0, arr.length - 1);
+    this.root = this.buildTree(this.arr, 0, this.arr.length - 1);
   }
 
-  buildTree(arr, start, end) {
-    /* Base Case */
+  buildTree(arr, start, end, depth = 0) {
     if (start > end) {
       return null;
     }
-    /* Get the middle element and make it root */
     const mid = parseInt((start + end) / 2);
     const node = new Node(arr[mid]);
-    /* Recursively construct the left subtree and make it 
-     left child of root */
-    node.left = this.buildTree(arr, start, mid - 1);
-    /* Recursively construct the right subtree and make it 
-     right child of root */
-    node.right = this.buildTree(arr, mid + 1, end);
+    node.left = this.buildTree(arr, start, mid - 1, depth + 1);
+    node.right = this.buildTree(arr, mid + 1, end, depth + 1);
     return node;
   }
 
@@ -106,15 +100,6 @@ class Tree {
     }
   }
 
-  levelOrder(callback) {
-    // Base case: check if the current node is null
-    if (node === null) {
-      return null;
-    }
-
-    const arr = [];
-  }
-
   levelOrderTraversal(root = this.root, callback = (node) => node.data) {
     if (!root) return []; // Handle an empty tree
 
@@ -132,6 +117,17 @@ class Tree {
       if (currentNode.right) {
         queue.push(currentNode.right);
       }
+    }
+    return result;
+  }
+
+  // Method to perform inorder traversal
+  inOrderTraversal(node = this.root, callback = (node) => node.data) {
+    let result = [];
+    if (node !== null) {
+      result = result.concat(this.inOrderTraversal(node.left, callback)); // Accumulate left subtree
+      result.push(callback(node)); // Process and add current node
+      result = result.concat(this.inOrderTraversal(node.right, callback)); // Accumulate right subtree
     }
     return result;
   }
