@@ -2,7 +2,7 @@ import Node from './node';
 
 class Tree {
   constructor(arr) {
-    this.arr = arr;
+    this.arr = this.sortAndFilter(arr);
     this.root = this.buildTree(arr, 0, arr.length - 1);
   }
 
@@ -21,6 +21,12 @@ class Tree {
      right child of root */
     node.right = this.buildTree(arr, mid + 1, end);
     return node;
+  }
+
+  sortAndFilter(arr) {
+    const uniqueElements = new Set(arr);
+    const sortedArray = Array.from(uniqueElements).sort((a, b) => a - b);
+    return sortedArray;
   }
 
   display(node = this.root) {
