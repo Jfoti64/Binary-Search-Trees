@@ -9,4 +9,4 @@ newTree.display();
 
 newTree.inOrderTraversal();
 
-console.log(newTree.inOrderTraversal());
+console.log(newTree.height());

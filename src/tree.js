@@ -132,6 +132,17 @@ class Tree {
     return result;
   }
 
+  height(root = this.root) {
+    if (root === null) return -1; // Correct base case for height
+
+    // Compute the height of each subtree
+    let lheight = this.height(root.left);
+    let rheight = this.height(root.right);
+
+    // Use the larger one and add 1 for the current node
+    return Math.max(lheight, rheight) + 1;
+  }
+
   display(node = this.root) {
     const prettyPrint = (node, prefix = '', isLeft = true) => {
       if (node === null) {
