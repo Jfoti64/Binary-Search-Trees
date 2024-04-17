@@ -29,6 +29,27 @@ class Tree {
     return sortedArray;
   }
 
+  insert(value, node = this.root) {
+    // If the tree/node is empty, return a new node
+    if (node === null) {
+      if (this.root === null) {
+        this.root = new Node(value); // Establish the root if the tree is entirely empty
+        return this.root;
+      }
+      return new Node(value);
+    }
+
+    // Otherwise, recur down the tree
+    if (value < node.data) {
+      node.left = this.insert(value, node.left); // Recursive insert on the left subtree
+    } else if (value > node.data) {
+      node.right = this.insert(value, node.right); // Recursive insert on the right subtree
+    }
+
+    // Return the (unchanged) node pointer
+    return node;
+  }
+
   display(node = this.root) {
     const prettyPrint = (node, prefix = '', isLeft = true) => {
       if (node === null) {
