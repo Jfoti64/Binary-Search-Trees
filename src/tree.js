@@ -94,7 +94,7 @@ class Tree {
     // Navigate left
     if (value < node.data) {
       return this.find(value, node.left);
-    } 
+    }
     // Navigate right
     else if (value > node.data) {
       return this.find(value, node.right);
@@ -104,6 +104,36 @@ class Tree {
       console.log(node);
       return node;
     }
+  }
+
+  levelOrder(callback) {
+    // Base case: check if the current node is null
+    if (node === null) {
+      return null;
+    }
+
+    const arr = [];
+  }
+
+  levelOrderTraversal(root = this.root, callback = (node) => node.data) {
+    if (!root) return []; // Handle an empty tree
+
+    let queue = [];
+    let result = []; // Array to hold results of callback
+    queue.push(root);
+
+    while (queue.length > 0) {
+      let currentNode = queue.shift();
+      result.push(callback(currentNode)); // Apply callback to each node
+
+      if (currentNode.left) {
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right) {
+        queue.push(currentNode.right);
+      }
+    }
+    return result;
   }
 
   display(node = this.root) {
