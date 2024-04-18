@@ -169,6 +169,13 @@ class Tree {
     return checkBalance(node).balanced;
   }
 
+  rebalance() {
+    if (!this.isBalanced()) {
+      const newArr = this.inOrderTraversal(); // Get all node values in order
+      this.root = this.buildTree(newArr, 0, newArr.length - 1); // Rebuild tree from sorted array
+    }
+  }
+
   display(node = this.root) {
     const prettyPrint = (node, prefix = '', isLeft = true) => {
       if (node === null) {

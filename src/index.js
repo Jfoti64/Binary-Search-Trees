@@ -1,14 +1,26 @@
 import Tree from './tree';
 
-const newTree = new Tree([1, 7, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+function randumNumArr() {
+  const arr = [];
+  while (arr.length < 100) {
+    arr.push(Math.floor(Math.random() * 101));
+  }
+  return arr;
+}
 
-newTree.insert(111);
-newTree.find(111);
+const newTree = new Tree(randumNumArr());
+
+console.log('Is the tree balanced?', newTree.isBalanced());
+console.log(newTree.inOrderTraversal(newTree.root));
+
+newTree.insert(101);
+newTree.insert(141);
+newTree.insert(121);
+
+console.log('Is the tree balanced?', newTree.isBalanced());
+
+newTree.rebalance();
+
+console.log('Is the tree balanced?', newTree.isBalanced());
 
 newTree.display();
-
-newTree.inOrderTraversal();
-
-console.log(newTree.height(newTree.root));
-console.log("Depth of node with value 5:", newTree.findDepth(newTree.root, 5));
-console.log("Is the tree balanced?", newTree.isBalanced());
